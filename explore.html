@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Heritage Hunt – Explore</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Public+Sans:wght@400;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Public Sans", sans-serif;
+      background: #FFFEFA;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    header {
+      position: absolute;
+      top: 16px;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      padding: 0 24px;
+    }
+
+    .topbar {
+      max-width: 1100px;
+      margin: auto;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(6px);
+      border-radius: 999px;
+      padding: 8px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    a {
+      text-decoration: none;
+      color: #9EB8A6;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<header>
+  <div class="topbar">
+    <h1 style="font-family:Merriweather;font-weight:700;">Heritage Hunt</h1>
+    <a href="index.html">Home</a>
+  </div>
+</header>
+
+<div id="map"></div>
+
+<script>
+
+const UNLOCK_RADIUS = 250; // in meters
+let map, userMarker;
+const activeMarkers = {};
+
+
+const SITES = [
+  { name: "Dholavira", lat: 23.885, lng: 70.215, page: "site-dholavira.html" },
+  { name: "Lothal", lat: 22.522, lng: 72.249, page: "site-lothal.html" },
+  { name: "Mandu", lat: 22.366, lng: 75.386, page: "site-mandu.html" },
+  { name: "Gingee Fort", lat: 12.252, lng: 79.417, page: "site-gingee.html" },
+  { name: "Bhimbetka", lat: 22.939, lng: 77.614, page: "site-bhimbetka.html" },
+  { name: "NMIMS", lat: 19.064853, lng: 73.077737, page: "site-nmims.html" },
+  { name: "Trial", lat: 19.00561, lng: 73.114447, page: "trial.html" }
+];
+
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: 22.5, lng: 78.9 },
+    zoom: 5,
+    mapTypeControl: false,
+    streetViewControl: false
+  });
+
+  trackUser();
+}
+
+/*EOLOCATION*/
+function trackUser() {
+  if (!navigator.geolocation) {
+    alert("Geolocation not supported.");
+    return;
+  }
+
+  navigator.geolocation.watchPosition(
+    pos => {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+      const userPos = { lat, lng };
+
+      if (!userMarker) {
+        userMarker = new google.maps.Marker({
+          position: userPos,
+          map,
+          title: "You are here",
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 8,
+            fillColor: "#9EB8A6",
+            fillOpacity: 1,
+            strokeColor: "#5C4638",
+            strokeWeight: 3
+          }
+        });
+
+        map.setCenter(userPos);
+        map.setZoom(15);
+      } else {
+        userMarker.setPosition(userPos);
+      }
+
+      checkSites(lat, lng);
+    },
+    () => alert("Please allow location access to explore heritage sites."),
+    { enableHighAccuracy: true }
+  );
+}
+
+/*DISTANCE */
+function distanceMeters(lat1, lng1, lat2, lng2) {
+  const R = 6371e3;
+  const toRad = d => d * Math.PI / 180;
+
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+    Math.sin(dLng / 2) ** 2;
+
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+/*SITE UNLOCK LOGIC*/
+function checkSites(userLat, userLng) {
+  SITES.forEach(site => {
+    const d = distanceMeters(userLat, userLng, site.lat, site.lng);
+
+    if (d <= UNLOCK_RADIUS && !activeMarkers[site.name]) {
+      const marker = new google.maps.Marker({
+        position: { lat: site.lat, lng: site.lng },
+        map,
+        animation: google.maps.Animation.DROP,
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 10,
+          fillColor: "#9EB8A6",
+          fillOpacity: 1,
+          strokeColor: "#ffffff",
+          strokeWeight: 3
+        }
+      });
+
+      const info = new google.maps.InfoWindow({
+        content: `
+          <strong>${site.name}</strong><br/>
+          <span style="font-size:12px;">You’re nearby!</span><br/>
+          <a href="${site.page}" style="color:#9EB8A6;font-weight:700;">
+            Explore →
+          </a>
+        `
+      });
+
+      marker.addListener("click", () => info.open(map, marker));
+      activeMarkers[site.name] = marker;
+    }
+  });
+}
+</script>
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAODVM2Pm7zkhqKGL2MoQEO32883W60JSk&callback=initMap"
+  async
+  defer>
+</script>
+
+</body>
+</html>

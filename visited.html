@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heritage Hunt – My Journal</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            heritage: {
+              beige: "#FAF7F2",
+              paper: "#FFFFFF",
+              green: "#94A89A",
+              greenLight: "#E9F0EB",
+              clay: "#D4B4A5",
+              ink: "#544E48",
+              stone: "#96908A",
+              line: "#EBE5DE",
+            }
+          },
+          fontFamily: {
+            serif: ["Lora", "serif"],
+            sans: ["Work Sans", "sans-serif"],
+          },
+          boxShadow: {
+            polaroid: "0 4px 6px rgba(0,0,0,0.12)",
+            soft: "0 10px 25px rgba(0,0,0,0.08)"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-heritage-beige text-heritage-ink font-sans min-h-screen flex justify-center">
+
+<div class="w-full max-w-[600px] px-6 pb-32">
+
+  <!-- HEADER -->
+	<header class="sticky top-0 bg-heritage-beige/90 backdrop-blur z-40 py-6 flex justify-between items-center">
+	<!-- LEFT: HOME -->
+	<a
+		href="index.html"
+		class="flex items-center gap-2 text-sm font-bold text-heritage-ink
+			hover:text-heritage-green transition-colors"
+	>
+		<span class="material-symbols-outlined text-base">home</span>
+		Home
+	</a>
+
+	<!-- CENTER TITLE -->
+	<h1 class="text-xl font-serif font-bold">
+		My Journal
+	</h1>
+
+	<!-- RIGHT: RESET -->
+	<button
+		id="resetBtn"
+		class="text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full
+			bg-heritage-clay/20 text-heritage-ink
+			hover:bg-heritage-clay hover:text-white
+			transition-all">
+		Reset Journey
+	</button>
+	</header>
+
+  <!-- TITLE -->
+  <section class="text-center mt-6 mb-8">
+    <h2 class="text-4xl font-serif font-bold">
+      Past <span class="text-heritage-green">Adventures</span>
+    </h2>
+    <p class="text-sm text-heritage-stone mt-2">
+      Every visit leaves a mark. 🌍
+    </p>
+  </section>
+
+  <section
+    id="collectionGrid"
+    class="grid grid-cols-2 gap-x-5 gap-y-8">
+  </section>
+
+  <div class="fixed bottom-0 left-0 right-0 max-w-[600px] mx-auto px-6 pb-6 bg-gradient-to-t from-heritage-beige via-heritage-beige/90 to-transparent">
+    <a
+      href="explore.html"
+      class="block w-full h-16 bg-heritage-ink text-white rounded-full
+             flex items-center justify-between px-6 font-bold
+             hover:bg-heritage-green transition-all shadow-soft">
+      Find Next Site
+      <span class="material-symbols-outlined">arrow_forward</span>
+    </a>
+  </div>
+
+</div>
+
+<script>
+/*CONFIG*/
+
+const SITE_IMAGES = {
+  "Dholavira": "./assets/images/dholavira.jpg",
+  "Lothal": "./assets/images/lothal.jpg",
+  "Mandu": "./assets/images/mandu.jpeg",
+  "Gingee Fort": "./assets/images/gingee.jpeg",
+  "Bekal Fort": "./assets/images/bekal.jpg",
+  "Rakhigarhi": "./assets/images/rakhigarhi.jpg",
+  "Bhimbetka Rock Shelters": "./assets/images/bhimbetka.jpg",
+  "Trial": "./assets/images/placeholder.jpg",
+  "NMIMS": "./assets/images/nmims.webp"
+};
+
+const SITE_PAGES = {
+  "Dholavira": "site-dholavira.html",
+  "Lothal": "site-lothal.html",
+  "Mandu": "site-mandu.html",
+  "Gingee Fort": "site-gingee.html",
+  "Bekal Fort": "site-bekal.html",
+  "Rakhigarhi": "site-rakhigarhi.html",
+  "Bhimbetka Rock Shelters": "site-bhimbetka.html",
+  "Trial": "trial.html",
+  "NMIMS": "site-nmims.html"
+};
+
+/*LOAD DATA*/
+
+const visitedSites =
+  JSON.parse(localStorage.getItem("visitedSites")) || [];
+
+const grid = document.getElementById("collectionGrid");
+
+
+if (visitedSites.length === 0) {
+  grid.innerHTML = `
+    <div class="col-span-2 text-center text-heritage-stone italic py-20">
+      Your passport is empty.<br/>
+      Go explore your first hidden heritage site ✨
+    </div>
+  `;
+}
+
+/*RENDER CARDS*/
+
+visitedSites.forEach((site, index) => {
+  const rotation = index % 2 === 0 ? "-rotate-2" : "rotate-3";
+
+  const card = document.createElement("div");
+  card.className = `
+    bg-white p-3 pb-8 shadow-polaroid rounded-sm
+    transform ${rotation}
+    hover:rotate-0 hover:scale-105 hover:z-20
+    transition-all cursor-pointer
+  `;
+
+  card.onclick = () => {
+    window.location.href = SITE_PAGES[site];
+  };
+
+  card.innerHTML = `
+    <div class="aspect-square rounded-sm overflow-hidden mb-3 bg-heritage-greenLight">
+      <img src="${SITE_IMAGES[site]}"
+           alt="${site}"
+           class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" />
+    </div>
+
+    <div class="text-center">
+      <h3 class="font-serif font-bold text-sm">${site}</h3>
+      <p class="text-[10px] uppercase tracking-widest text-heritage-stone mt-1">
+        Visited
+      </p>
+    </div>
+  `;
+
+  grid.appendChild(card);
+});
+
+
+document.getElementById("resetBtn").onclick = () => {
+  if (confirm("Reset your journey? This will clear all visited sites.")) {
+    localStorage.removeItem("visitedSites");
+    location.reload();
+  }
+};
+</script>
+
+</body>
+</html>

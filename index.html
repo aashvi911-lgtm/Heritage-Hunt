@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Heritage Hunt – Explore & Care</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        "cozy-bg": "#FFF9F2",
+        "cozy-text": "#5C4638",
+        "cozy-green": "#9BC4AA",
+        "cozy-green-dark": "#76A686",
+        "cozy-pink": "#F2C6C2",
+        "cozy-yellow": "#FAE3B4",
+        "cozy-blue": "#BBDCE3",
+        "cozy-white": "#FFFEFC",
+      },
+      fontFamily: {
+        "sans": ["Nunito", "sans-serif"],
+        "serif": ["Fraunces", "serif"],
+      }
+    }
+  }
+}
+</script>
+
+<style>
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: #FFF9F2;
+}
+</style>
+</head>
+
+<body class="bg-cozy-bg text-cozy-text antialiased overflow-x-hidden">
+
+<script>
+if (!localStorage.getItem("userState")) {
+  localStorage.setItem("userState", JSON.stringify({
+    visited: [],
+    currentSite: null
+  }));
+}
+</script>
+
+<div class="relative flex min-h-screen flex-col">
+
+<header class="fixed top-0 left-0 right-0 z-50 px-4 py-4">
+  <div class="mx-auto max-w-6xl bg-white/70 backdrop-blur-md rounded-full px-6 py-3 flex justify-between items-center shadow">
+    
+    <div class="flex items-center gap-3">
+      <div class="h-10 w-10 rounded-full bg-cozy-green text-white flex items-center justify-center">
+        <span class="material-symbols-outlined">castle</span>
+      </div>
+      <h2 class="font-serif text-xl font-bold">Heritage Hunt</h2>
+    </div>
+
+    <nav class="hidden md:flex items-center gap-4 font-bold text-cozy-text/70">
+      <a href="about.html" class="hover:text-cozy-green-dark">Our Mission</a>
+      <a href="visited.html" class="hover:text-cozy-green-dark">Journal</a>
+
+      <a href="explore.html"
+         class="ml-4 bg-cozy-text text-cozy-bg px-6 py-2.5 rounded-full hover:bg-cozy-green-dark transition">
+        Play Now
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main class="flex flex-col items-center justify-center text-center pt-32 px-4 grow">
+
+  <div class="max-w-5xl">
+
+    <h1 class="font-serif text-6xl md:text-8xl font-black leading-tight mb-8">
+      Discover<br/>
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-cozy-green-dark to-cozy-green">
+        Hidden Heritage
+      </span>
+    </h1>
+
+    <div class="bg-white/80 rounded-3xl p-8 shadow max-w-2xl mx-auto">
+      <p class="text-xl font-bold text-cozy-text/80 mb-8">
+        Explore culturally rich but overlooked places near you and help promote
+        responsible, sustainable tourism.
+      </p>
+
+      <a href="explore.html"
+         class="inline-flex items-center justify-center gap-3 bg-cozy-green text-white px-12 py-5 rounded-full font-black shadow hover:bg-cozy-green-dark transition">
+        Start Adventure
+        <span class="material-symbols-outlined">explore</span>
+      </a>
+
+      
+      <div class="mt-6 text-sm font-bold text-cozy-text/60">
+        <span class="material-symbols-outlined text-cozy-green-dark"style="vertical-align: text-bottom;">public</span>
+        UN SDG 11.4 — Protect Cultural Heritage
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="py-8 text-center text-xs font-bold text-cozy-text/40">
+  Made for Hidden Heritage
+</footer>
+
+</div>
+</body>
+</html>

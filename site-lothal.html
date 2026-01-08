@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Heritage Hunt – Lothal</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300..700&display=swap" rel="stylesheet"/>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: "#FFF9F2",
+            mint: "#8CD1B0",
+            mintLight: "#E3F7EE",
+            coral: "#FFB5A7",
+            sand: "#E8DFD0",
+            cocoa: "#5C544F",
+            cocoaLight: "#8A817C"
+          },
+          fontFamily: {
+            display: ["Quicksand", "sans-serif"],
+            body: ["DM Sans", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-cream text-cocoa font-body min-h-screen flex flex-col">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-40 bg-cream/90 backdrop-blur border-b border-sand px-6 py-4">
+  <div class="max-w-6xl mx-auto flex justify-between items-center">
+    <a href="explore.html" class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-mint rounded-xl flex items-center justify-center text-white">
+        <span class="material-symbols-outlined">explore</span>
+      </div>
+      <span class="font-display font-bold text-lg">Heritage Hunt</span>
+    </a>
+    <a href="explore.html" class="text-sm font-bold text-cocoaLight hover:text-mint">
+      ← Back to Map
+    </a>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="flex-grow max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-12 gap-10">
+
+  <!-- LEFT -->
+  <section class="lg:col-span-7 flex flex-col gap-8">
+
+    <!-- HERO IMAGE -->
+    <div class="relative rounded-[2.5rem] overflow-hidden shadow-lg aspect-[16/10]">
+      <div
+        class="absolute inset-0 bg-cover bg-center"
+        style="background-image: url('./assets/images/lothal.jpg');">
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+      <div class="absolute top-5 left-5 bg-white/90 px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2">
+        <span class="material-symbols-outlined text-coral text-sm">public</span>
+        UN SDG 11.4
+      </div>
+    </div>
+
+    <!-- TITLE -->
+    <div>
+      <span class="text-sm uppercase tracking-widest font-bold text-coral">
+        Gujarat, India
+      </span>
+      <h1 class="font-display text-4xl md:text-5xl font-bold mt-2">
+        Lothal
+      </h1>
+    </div>
+
+    <!-- STORY -->
+    <div class="bg-white rounded-[2rem] p-8 shadow border border-sand">
+      <h2 class="font-display text-2xl font-bold mb-4 flex items-center gap-3">
+        <span class="material-symbols-outlined text-mint">auto_stories</span>
+        The Story
+      </h2>
+      <p class="text-cocoaLight leading-relaxed text-lg">
+        Lothal was an important city of the Indus Valley Civilization and is
+        best known for its dockyard, believed to be one of the world’s earliest.
+        The site reveals advanced knowledge of maritime trade, standardized
+        construction, and urban planning that connected inland cities with
+        distant coastal regions.
+      </p>
+    </div>
+
+    <!-- WHY SPECIAL -->
+    <div class="bg-white rounded-[2rem] p-8 shadow border border-sand">
+      <h2 class="font-display text-xl font-bold mb-3 flex items-center gap-2">
+        <span class="material-symbols-outlined text-coral">stars</span>
+        Why It’s Special
+      </h2>
+      <p class="text-cocoaLight leading-relaxed">
+        Lothal highlights early innovation in trade, navigation, and coastal
+        urban planning. Its dockyard reflects how ancient civilizations adapted
+        infrastructure to natural waterways, supporting long-distance commerce
+        and cultural exchange.
+      </p>
+    </div>
+
+  </section>
+
+  <!-- RIGHT -->
+  <aside class="lg:col-span-5 flex flex-col gap-6">
+
+    <!-- STATUS CARD -->
+    <div class="bg-gradient-to-b from-white to-mintLight rounded-[2.5rem] p-8 shadow text-center">
+      <div class="inline-flex items-center gap-2 bg-mint text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
+        <span class="material-symbols-outlined">lock_open</span>
+        Site Unlocked
+      </div>
+
+      <div class="w-24 h-24 mx-auto bg-white rounded-full flex items-center justify-center shadow border-4 border-cream text-coral">
+        <span class="material-symbols-outlined text-5xl">workspace_premium</span>
+      </div>
+
+      <h3 class="font-display text-2xl font-bold mt-4">
+        Heritage Guardian
+      </h3>
+      <p class="text-cocoaLight text-sm mt-2">
+        By discovering Lothal, you’ve highlighted an early center of trade and
+        maritime innovation in ancient India.
+      </p>
+    </div>
+
+    <!-- CARE GUIDE -->
+    <div class="bg-white rounded-[2rem] p-8 shadow border border-sand">
+      <h3 class="font-display text-xl font-bold mb-5 flex items-center gap-2">
+        <span class="material-symbols-outlined text-mint">eco</span>
+        Care Guide
+      </h3>
+
+      <ul class="space-y-4 text-sm text-cocoaLight">
+        <li>• Stay within designated walkways</li>
+        <li>• Do not disturb excavation areas</li>
+        <li>• Avoid damaging brick structures</li>
+        <li>• Respect the archaeological site</li>
+      </ul>
+    </div>
+
+  </aside>
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-sand py-6 text-center text-sm text-cocoaLight">
+  © 2024 Heritage Hunt · Protecting Cultural Heritage (SDG 11.4)
+</footer>
+
+<script>
+  const SITE_NAME = "Lothal"; // CHANGE THIS FOR EACH PAGE
+
+  let visitedSites = JSON.parse(localStorage.getItem("visitedSites")) || [];
+
+  if (!visitedSites.includes(SITE_NAME)) {
+    visitedSites.push(SITE_NAME);
+    localStorage.setItem("visitedSites", JSON.stringify(visitedSites));
+  }
+</script>
+
+
+</body>
+</html>
